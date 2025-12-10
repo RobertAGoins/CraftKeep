@@ -16,8 +16,12 @@ As the project evolves, this `GEMINI.md` file should be updated to reflect:
 CraftyKeep is a mobile friendly web app designed to help crafters keep track of their work.  It should allow tracking projects,
 tracking and searching your stash of unused materials.
 
-2.  **Tech Stack**: Languages, frameworks, and tools used.
-3.  **Build & Run Instructions**: How to set up the environment and run the application.
+2.  **Tech Stack**: Next.js, React, TypeScript, Tailwind CSS.
+3.  **Build & Run Instructions**: 
+    - Install dependencies: `npm install`
+    - Run development server: `npm run dev`
+    - Build for production: `npm run build`
+    - Start production server: `npm run start`
 4.  **Conventions**: Coding styles and standard procedures.
 
 ## Recommended Next Steps
