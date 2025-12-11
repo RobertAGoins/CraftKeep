@@ -7,7 +7,7 @@ export default async function Home() {
   const session = await getServerSession(authOptions);
 
   return (
-    <div className="flex min-h-[calc(100vh-64px)] items-center justify-center bg-zinc-50 font-sans dark:bg-black">
+    <div className="flex min-h-[calc(100vh-64px)] items-center justify-center bg-purple-50 font-sans dark:bg-black">
       <main className="flex w-full max-w-3xl flex-col items-center justify-center py-16 px-6 bg-white dark:bg-black sm:items-start sm:px-16">
         
         {/* CraftyKeep mascot */}
@@ -22,10 +22,10 @@ export default async function Home() {
         </div>
 
         <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="text-4xl font-bold tracking-tight text-black dark:text-zinc-50">
+          <h1 className="text-4xl font-bold tracking-tight text-black dark:text-purple-50">
             Welcome to CraftyKeep!
           </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
+          <p className="max-w-md text-lg leading-8 text-purple-700 dark:text-purple-400">
             {session ? `Hello, ${session.user?.name}! Ready to craft?` : "Your personal space to track projects, manage your stash, and unleash your creativity."}
           </p>
 
@@ -33,20 +33,20 @@ export default async function Home() {
             <div className="mt-4 flex gap-4">
               <Link
                 href="/projects"
-                className="rounded-full bg-blue-600 px-6 py-3 text-white font-medium hover:bg-blue-700 transition-colors inline-block"
+                className="rounded-full bg-purple-400 px-6 py-3 text-white font-medium hover:bg-purple-500 transition-colors inline-block"
               >
                 View My Projects
               </Link>
               <Link
                 href="/projects/create"
-                className="rounded-full border border-zinc-300 px-6 py-3 text-zinc-700 font-medium hover:bg-zinc-100 dark:border-zinc-700 dark:text-zinc-300 dark:hover:bg-zinc-800 transition-colors inline-block"
+                className="rounded-full border border-zinc-300 px-6 py-3 text-purple-800 font-medium hover:bg-purple-100 dark:border-purple-800 dark:text-purple-300 dark:hover:bg-zinc-800 transition-colors inline-block"
               >
                 New Project
               </Link>
             </div>
           ) : (
              <div className="mt-4">
-                <p className="text-zinc-500 dark:text-zinc-400">
+                <p className="text-purple-600 dark:text-purple-400">
                     Sign in to start tracking your projects.
                 </p>
              </div>
