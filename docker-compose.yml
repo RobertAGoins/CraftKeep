@@ -1,0 +1,13 @@
+services:
+  craftykeep:
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      - DATABASE_URL=file:/app/data/prod.db
+      - NEXTAUTH_URL=http://localhost:3000
+      - NEXTAUTH_SECRET=changeme # User needs to change this
+      # Add Google/Azure keys here or in a .env file
+    volumes:
+      - ./data:/app/data
+      - ./public/uploads:/app/public/uploads
