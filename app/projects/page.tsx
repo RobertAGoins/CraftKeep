@@ -62,25 +62,27 @@ export default function ProjectsPage() {
         ) : (
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {projects.map((project) => (
-              <div key={project.id} className="overflow-hidden rounded-lg bg-white shadow dark:bg-zinc-900 transition-transform hover:scale-[1.02]">
-                <div className="relative h-48 w-full">
-                  <Image
-                    src={project.imageUrl}
-                    alt={project.name}
-                    fill
-                    className="object-cover"
-                  />
-                </div>
-                <div className="p-6">
-                  <h3 className="text-xl font-semibold text-zinc-900 dark:text-zinc-100">{project.name}</h3>
-                  <p className="mt-2 text-sm text-zinc-500 dark:text-zinc-400 line-clamp-3">
-                    {project.description}
-                  </p>
-                  <div className="mt-4 text-xs text-zinc-400">
-                    Created: {new Date(project.createdAt).toLocaleDateString()}
+              <Link key={project.id} href={`/projects/${project.id}`} className="block">
+                <div className="overflow-hidden rounded-lg bg-white shadow dark:bg-zinc-900 transition-transform hover:scale-[1.02] h-full">
+                  <div className="relative h-48 w-full">
+                    <Image
+                      src={project.imageUrl}
+                      alt={project.name}
+                      fill
+                      className="object-cover"
+                    />
+                  </div>
+                  <div className="p-6">
+                    <h3 className="text-xl font-semibold text-zinc-900 dark:text-zinc-100">{project.name}</h3>
+                    <p className="mt-2 text-sm text-zinc-500 dark:text-zinc-400 line-clamp-3">
+                      {project.description}
+                    </p>
+                    <div className="mt-4 text-xs text-zinc-400">
+                      Created: {new Date(project.createdAt).toLocaleDateString()}
+                    </div>
                   </div>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
         )}

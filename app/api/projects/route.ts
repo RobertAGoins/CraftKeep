@@ -2,6 +2,8 @@ import { NextResponse } from "next/server";
 import path from "path";
 import { writeFile } from "fs/promises";
 import { prisma } from "@/lib/prisma";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/authOptions";
 
 const uploadDir = path.join(process.cwd(), "public", "uploads");
 
@@ -21,6 +23,7 @@ export async function GET() {
 
 export async function POST(request: Request) {
   try {
+    const session = await getServerSession(authOptions);
     const formData = await request.formData();
     const name = formData.get("name") as string;
     const description = formData.get("description") as string;
@@ -44,6 +47,7 @@ export async function POST(request: Request) {
         name,
         description,
         imageUrl: `/uploads/${filename}`,
+        userId: session?.user?.id,
       },
     });
 

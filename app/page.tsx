@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/authOptions";
 import { LoginButton, LogoutButton } from "@/components/AuthButtons";
@@ -31,7 +32,13 @@ export default async function Home() {
                    />
                 )}
                 <div className="hidden sm:flex flex-col text-right">
-                   <span className="text-sm font-semibold dark:text-white">{session.user.name}</span>
+                   {session.user.id ? (
+                       <Link href={`/profile/${session.user.id}`} className="hover:underline">
+                           <span className="text-sm font-semibold dark:text-white">{session.user.name}</span>
+                       </Link>
+                   ) : (
+                       <span className="text-sm font-semibold dark:text-white">{session.user.name}</span>
+                   )}
                 </div>
                 <LogoutButton />
              </div>
