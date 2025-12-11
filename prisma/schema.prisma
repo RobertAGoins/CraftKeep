@@ -47,6 +47,7 @@ model User {
   accounts      Account[]
   sessions      Session[]
   projects      Project[]
+  stashItems    StashItem[]
 }
 
 model VerificationToken {
@@ -67,4 +68,16 @@ model Project {
   
   userId      String?
   user        User?    @relation(fields: [userId], references: [id])
+}
+
+model StashItem {
+  id          String   @id @default(uuid())
+  name        String
+  description String
+  imageUrl    String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }

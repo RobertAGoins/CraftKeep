@@ -35,5 +35,7 @@ describe('NavClient', () => {
     
     // Projects link
     expect(screen.getByText('Projects')).toBeInTheDocument()
+    // Stash link
+    expect(screen.getByText('Stash')).toBeInTheDocument()
   })
 })

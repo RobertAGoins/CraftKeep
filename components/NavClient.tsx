@@ -26,12 +26,20 @@ export default function NavClient({ user }: { user?: User }) {
             </Link>
             <div className="hidden sm:ml-6 sm:flex sm:space-x-8">
               {user && (
+                <>
                   <Link 
                     href="/projects" 
                     className="border-transparent text-purple-600 hover:border-purple-400 hover:text-purple-800 dark:text-purple-300 dark:hover:text-white inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium transition-colors"
                   >
                     Projects
                   </Link>
+                  <Link 
+                    href="/stash" 
+                    className="border-transparent text-purple-600 hover:border-purple-400 hover:text-purple-800 dark:text-purple-300 dark:hover:text-white inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium transition-colors"
+                  >
+                    Stash
+                  </Link>
+                </>
               )}
             </div>
           </div>
@@ -87,6 +95,7 @@ export default function NavClient({ user }: { user?: User }) {
         <div className="sm:hidden">
           <div className="pt-2 pb-3 space-y-1">
             {user && (
+                <>
                 <Link
                   href="/projects"
                   onClick={() => setIsOpen(false)}
@@ -94,6 +103,14 @@ export default function NavClient({ user }: { user?: User }) {
                 >
                   My Projects
                 </Link>
+                <Link
+                  href="/stash"
+                  onClick={() => setIsOpen(false)}
+                  className="border-transparent text-purple-600 hover:bg-purple-50 hover:border-purple-300 hover:text-purple-800 block pl-3 pr-4 py-2 border-l-4 text-base font-medium dark:text-purple-300 dark:hover:bg-purple-800"
+                >
+                  My Stash
+                </Link>
+                </>
             )}
           </div>
           <div className="pt-4 pb-4 border-t border-zinc-200 dark:border-purple-800">
