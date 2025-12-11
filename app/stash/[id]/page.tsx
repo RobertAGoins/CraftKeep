@@ -2,6 +2,9 @@ import { prisma } from "@/lib/prisma";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/authOptions";
+import DeleteButton from "@/components/DeleteButton";
 
 export default async function StashItemPage({
   params,
@@ -9,6 +12,7 @@ export default async function StashItemPage({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
+  const session = await getServerSession(authOptions);
 
   const item = await prisma.stashItem.findUnique({
     where: { id },
@@ -17,6 +21,8 @@ export default async function StashItemPage({
   if (!item) {
     notFound();
   }
+
+  const isOwner = session?.user?.id === item.userId;
 
   return (
     <div className="min-h-screen bg-purple-50 p-8 dark:bg-black font-sans">
@@ -30,6 +36,15 @@ export default async function StashItemPage({
             >
                 ← Back to Stash
             </Link>
+            
+            {isOwner && (
+                <DeleteButton 
+                    id={item.id} 
+                    endpoint="/api/stash" 
+                    redirectUrl="/stash" 
+                    itemName="stash item" 
+                />
+            )}
         </div>
 
         {/* Item Image */}

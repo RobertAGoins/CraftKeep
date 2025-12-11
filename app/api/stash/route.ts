@@ -7,7 +7,7 @@ import { authOptions } from "@/lib/authOptions";
 
 const uploadDir = path.join(process.cwd(), "public", "uploads");
 
-export async function GET() {
+export async function GET(request: Request) {
   const session = await getServerSession(authOptions);
   
   if (!session?.user?.id) {
@@ -15,10 +15,22 @@ export async function GET() {
   }
 
   try {
+    const { searchParams } = new URL(request.url);
+    const query = searchParams.get("q");
+
+    const where: any = {
+      userId: session.user.id
+    };
+
+    if (query) {
+      where.OR = [
+        { name: { contains: query } },
+        { description: { contains: query } },
+      ];
+    }
+
     const items = await prisma.stashItem.findMany({
-      where: {
-        userId: session.user.id
-      },
+      where,
       orderBy: {
         createdAt: 'desc'
       }

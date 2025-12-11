@@ -7,9 +7,22 @@ import { authOptions } from "@/lib/authOptions";
 
 const uploadDir = path.join(process.cwd(), "public", "uploads");
 
-export async function GET() {
+export async function GET(request: Request) {
   try {
+    const { searchParams } = new URL(request.url);
+    const query = searchParams.get("q");
+
+    const where = query
+      ? {
+          OR: [
+            { name: { contains: query } },
+            { description: { contains: query } },
+          ],
+        }
+      : {};
+
     const projects = await prisma.project.findMany({
+      where: where as any, // casting to avoid strict type issues if Prisma types aren't perfectly aligned with dynamic where
       orderBy: {
         createdAt: 'desc'
       }

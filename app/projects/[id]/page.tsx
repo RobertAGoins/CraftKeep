@@ -2,6 +2,9 @@ import { prisma } from "@/lib/prisma";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/authOptions";
+import DeleteButton from "@/components/DeleteButton";
 
 export default async function ProjectDetailsPage({
   params,
@@ -9,6 +12,7 @@ export default async function ProjectDetailsPage({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
+  const session = await getServerSession(authOptions);
 
   const project = await prisma.project.findUnique({
     where: { id },
@@ -17,6 +21,8 @@ export default async function ProjectDetailsPage({
   if (!project) {
     notFound();
   }
+
+  const isOwner = session?.user?.id === project.userId;
 
   return (
     <div className="min-h-screen bg-purple-50 p-8 dark:bg-black font-sans">
@@ -30,7 +36,15 @@ export default async function ProjectDetailsPage({
             >
                 ← Back to Projects
             </Link>
-            {/* Future edit/delete buttons can go here */}
+            
+            {isOwner && (
+                <DeleteButton 
+                    id={project.id} 
+                    endpoint="/api/projects" 
+                    redirectUrl="/projects" 
+                    itemName="project" 
+                />
+            )}
         </div>
 
         {/* Project Image */}
